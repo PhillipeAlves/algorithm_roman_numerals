@@ -1,4 +1,4 @@
-![Banner](/islands-banner.gif)
+![Banner](/roman-banner.gif)
 
 ## Problem
 
