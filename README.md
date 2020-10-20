@@ -24,9 +24,8 @@ In Roman numerals 1990 is MCMXC:
 ## Solution
 
 ```
-romanNumbers = (number) => {
-  let roman = "";
-  const romanNumbers = {
+createRomanNumerals = number => {
+  const roman = {
     M: 1000,
     CM: 900,
     D: 500,
@@ -39,31 +38,35 @@ romanNumbers = (number) => {
     IX: 9,
     V: 5,
     IV: 4,
-    I: 1,
-  };
-  let arabicNumbers;
-  for (let key in romanNumbers) {
-    arabicNumbers = Math.floor(number / romanNumbers[key]);
+    I: 1
+  }
+  const romanNumerals = Object.keys(roman)
+  let arabicNumbers
+  let result = ''
+
+  romanNumerals.forEach(key => {
+    arabicNumbers = Math.floor(number / roman[key])
     if (arabicNumbers >= 0) {
       for (let i = 0; i < arabicNumbers; i++) {
-        roman += key;
+        result += key
       }
     }
-    number = number % romanNumbers[key];
-  }
-  return roman;
-};
+    number = number % roman[key]
+  })
 
-writeRomanNumerals = (number) => {
-  numbers = [...Array(number + 1).keys()];
-  numbers = numbers.filter((number) => number !== 0);
-  let romanNumerals = numbers.reduce((arabic, number) => {
-    let romanNumber = romanNumbers(number);
-    arabic[number] = romanNumber;
-    return arabic;
-  }, {});
-  return romanNumerals;
-};
+  return result
+}
+
+writeRomanNumerals = num => {
+  numbers = [...Array(num + 1).keys()]
+  numbers = numbers.filter(number => number !== 0)
+  const romanNumerals = numbers.reduce((arabic, number) => {
+    const romanNumeral = createRomanNumerals(number)
+    arabic[number] = romanNumeral
+    return arabic
+  }, {})
+  return romanNumerals
+}
 
 writeRomanNumerals(7)
 
